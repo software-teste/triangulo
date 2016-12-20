@@ -1,0 +1,31 @@
+{
+  "name": "triangulo",
+  "version": "1.0.0",
+  "description": "Primeiro projeto da disciplina de Teste de Software com TDD",
+
+
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --reporter spec"
+  },
+  "dependencies": {
+    "mocha": "^3.2.0",
+    "should": "^11.1.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/software-teste/triangulo.git"
+  },
+
+
+  "keywords": [
+    "tdd",
+    "node"
+  ],
+  "author": "IFRN CNAT DIATINF",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/software-teste/triangulo/issues"
+  },
+  "homepage": "https://github.com/software-teste/triangulo#readme"
+}
