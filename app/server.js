@@ -4,7 +4,8 @@ var express = require('express');
 var bodyParser = require('body-parser');
 
 var app = express();
-app.use(bodyParser.json({ type: 'application/*+json' }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 var Triangulo = require('./models/Triangulo');
 
@@ -13,22 +14,21 @@ app.get('/', function(requisao, resposta) {
 });
 
 app.post('/api/:projeto_id/triangulo/novo', function(requisicao, resposta) {
-  console.log(requisicao.body);
-  if (requisicao.body.length == 0) {
+  if (!Object.keys(requisicao.body).length) {
     resposta
       .status(400)
       .send({"resultado":"nok", "error": "-1"});
-  } else {
-    var triangulo = new Triangulo(
-      requisicao.body.nome,
-      requisicao.body.ponto_a,
-      requisicao.body.ponto_b,
-      requisicao.body.ponto_c
-    );
-    resposta
-      .status(200)
-      .send({"resultado":"ok");
+    return;
   }
+  var triangulo = new Triangulo(
+    requisicao.body.nome,
+    requisicao.body.ponto_a,
+    requisicao.body.ponto_b,
+    requisicao.body.ponto_c
+  );
+  resposta
+    .status(200)
+    .send({"resultado":"ok"});
 });
 
 app.listen(3000, function() {
