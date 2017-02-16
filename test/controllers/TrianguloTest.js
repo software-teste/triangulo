@@ -71,13 +71,28 @@ describe('API Triangulo', function() {
             });
       });
 
-      // testar :
-      // -> se o retorno foi OK triangulo válido e criado
-      //   {"retorno":"ok"}
-      // - se o retorno foi NAO OK triangulo é inválido
-      //   {"retorno":"nok","motivo":"triângulo inválido"}
-      // OK se o retorno foi NAO OK porque não foi passado JSON como parametro
-      //   {"retorno":"nok","motivo":"requisição inválida"}
+      it('Teste da resposta a uma requisição válida', (done) => {
+        var objetoJson = {
+            nome:'anonimo',
+            ponto_a:[0,5],
+            ponto_b:[1,3],
+            ponto_c:[2,1]};
+
+        chai.request(server)
+            .post('/api/anonimo/triangulo/novo')
+            .set('content-type', 'application/x-www-form-urlencoded')
+            .send(objetoJson)
+            .end(function(err, res) {
+                expect(res).to.have.status(200);
+                expect(res).to.be.json;
+
+                expect(res.body).to.have.property('resultado')
+                  .and.equal('ok');
+                expect(res.body).not.to.have.property('error');
+                done();
+            });
+      });
+
   });
 
 });
