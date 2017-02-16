@@ -71,7 +71,7 @@ describe('API Triangulo', function() {
             });
       });
 
-      it('Teste da resposta a uma requisição válida', (done) => {
+      it('Teste da resposta a uma requisição INválida', (done) => {
         var objetoJson = {
             nome:'anonimo',
             ponto_a:[0,5],
@@ -83,16 +83,78 @@ describe('API Triangulo', function() {
             .set('content-type', 'application/x-www-form-urlencoded')
             .send(objetoJson)
             .end(function(err, res) {
-                expect(res).to.have.status(200);
+                expect(res).to.have.status(400);
                 expect(res).to.be.json;
 
-                expect(res.body).to.have.property('resultado')
-                  .and.equal('ok');
-                expect(res.body).not.to.have.property('error');
+                expect(res.body)
+                    .to.have.property('resultado')
+                    .and.equal('nok');
+                expect(res.body)
+                    .to.have.property('error')
+                    .and.equal('-2');
                 done();
             });
       });
 
+  });
+
+  describe("Estratégia TOP-DOWN WS criar triângulo [nome] ponto_a linha_a angulo_b linha_b angulo_c linha_c", function() {
+    it('Teste da resposta a uma requisição INválida', (done) => {
+      var objetoJson = {
+          nome:'anonimo',
+          ponto_a:[5,5],
+          linha_a: 10,
+          angulo_b: 0,
+          linha_b: 10,
+          angulo_c: 0,
+          linha_c: 10
+        };
+
+      chai.request(server)
+          .post('/api/anonimo/triangulo/novo')
+          .set('content-type', 'application/x-www-form-urlencoded')
+          .send(objetoJson)
+          .end(function(err, res) {
+              expect(res).to.have.status(400);
+              expect(res).to.be.json;
+
+              expect(res.body)
+                  .to.have.property('resultado')
+                  .and.equal('nok');
+              expect(res.body)
+                  .to.have.property('error')
+                  .and.equal('-2');
+              done();
+          });
+    });
+
+    it('Teste da resposta a uma requisição válida', (done) => {
+      var objetoJson = {
+          nome:'anonimo',
+          ponto_a:[5,5],
+          linha_a: 10,
+          angulo_b: 45,
+          linha_b: 10,
+          angulo_c: 45,
+          linha_c: 10
+        };
+
+      chai.request(server)
+          .post('/api/anonimo/triangulo/novo')
+          .set('content-type', 'application/x-www-form-urlencoded')
+          .send(objetoJson)
+          .end(function(err, res) {
+              expect(res).to.have.status(200);
+              expect(res).to.be.json;
+
+              expect(res.body)
+                  .to.have.property('resultado')
+                  .and.equal('ok');
+              expect(res.body)
+                  .not.to.have.property('error');
+              done();
+          });
+    });
   });
 
 });
