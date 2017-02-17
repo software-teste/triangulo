@@ -1,5 +1,3 @@
-//During the test the env variable is set to test
-// process.env.NODE_ENV = 'test';
 
 //Require the dev-dependencies
 var chai = require('chai');
@@ -41,10 +39,12 @@ describe('API Triangulo', function() {
                 expect(res).to.have.status(400);
                 expect(res).to.be.json;
 
-                expect(res.body).to.have.property('resultado')
+                expect(res.body)
+                  .to.have.property('resultado')
                   .and.equal('nok');
-                expect(res.body).to.have.property('error')
-                  .and.equal('-1');
+                expect(res.body)
+                  .to.have.property('error')
+                  .and.equal(-1);
                 done();
             });
       });
@@ -64,9 +64,11 @@ describe('API Triangulo', function() {
                 expect(res).to.have.status(200);
                 expect(res).to.be.json;
 
-                expect(res.body).to.have.property('resultado')
+                expect(res.body)
+                  .to.have.property('resultado')
                   .and.equal('ok');
-                expect(res.body).not.to.have.property('error');
+                expect(res.body)
+                  .not.to.have.property('error');
                 done();
             });
       });
@@ -91,7 +93,7 @@ describe('API Triangulo', function() {
                     .and.equal('nok');
                 expect(res.body)
                     .to.have.property('error')
-                    .and.equal('-2');
+                    .and.equal(-2);
                 done();
             });
       });
@@ -123,7 +125,7 @@ describe('API Triangulo', function() {
                   .and.equal('nok');
               expect(res.body)
                   .to.have.property('error')
-                  .and.equal('-2');
+                  .and.equal(-2);
               done();
           });
     });

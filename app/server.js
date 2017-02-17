@@ -18,21 +18,20 @@ app.get('/', function(requisao, resposta) {
 });
 
 app.post('/api/:projeto_id/triangulo/novo', function(requisicao, resposta) {
-  console.log('body ', resposta.body);
 
   // Se não tem JSON no body
   if (!Object.keys(requisicao.body).length) {
-    resposta_erro(resposta, "-1");
+    resposta_erro(resposta, -1);
     return;
   }
 
   // cria o objeto triangulo com o helper
-  var triangulo = helper(resposta.body);
+  var triangulo = helper(requisicao.body);
   console.log('retorno de helper ', triangulo);
 
   // erro com o json da requisição
   if (!Object.keys(triangulo).length) {
-    resposta_erro(resposta, "-2");
+    resposta_erro(resposta, -2);
     return;
   }
 

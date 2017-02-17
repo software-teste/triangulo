@@ -1,7 +1,22 @@
-// module.exports = function helper(json) {
-module.exports = function helper(ponto_a, linha_a, angulo_b, linha_b, angulo_c, linha_c) {
-    if (angulo_b == 0) {
-      return {ponto_a: [0,5], ponto_b: [1,3], ponto_c: [2,1]};
+var Triangulo = require('./Triangulo');
+
+module.exports = function helper(objeto_json) {
+  var triangulo = {};
+  if (typeof objeto_json.ponto_b == 'undefined') {
+    if (objeto_json.angulo_b == 0) {
+      return {};
     }
-    return {ponto_a: [5,5], ponto_b: [1,3], ponto_c: [2,2]};
+    return new Triangulo(
+      'anonimo',
+      [5,5],
+      [1,3],
+      [2,1]
+    );
+  } else {
+    return new Triangulo(
+        objeto_json.nome,
+        objeto_json.ponto_a,
+        objeto_json.ponto_b,
+        objeto_json.ponto_c);
+ };
 };
